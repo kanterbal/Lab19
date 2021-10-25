@@ -31,7 +31,7 @@ namespace Lab19
                 new Computer() { Code = "1J3S1EA", Name = "HP ZBook 15 Create G7", ProcessorType = "Intel Core i7", ProcessorFrequency = 5000, MemoryCapacity = 32, HDDCapacity = 1024, VideoCapacity = 8, Cost = 234590, Stock = 3},
                 new Computer() { Code = "119W0EA", Name = "HP ZBook 15 Fury 17 G7", ProcessorType = "Intel Core i7",ProcessorFrequency = 5000, MemoryCapacity = 32, HDDCapacity = 1024, VideoCapacity = 4, Cost = 232760, Stock = 3},
                 new Computer() { Code = "358W0EA", Name = "HP Elite Dragonfly G2", ProcessorType = "Intel Core i7",ProcessorFrequency = 4700, MemoryCapacity = 32, HDDCapacity = 2048, VideoCapacity =  0, Cost = 195200, Stock = 3},
-                new Computer() { Code = "2C9N0EA", Name = "HP ZBook Power G7", ProcessorType = "Intel Xeon",ProcessorFrequency = 5100, MemoryCapacity = 16, HDDCapacity = 512, VideoCapacity = 4,Cost = 186720, Stock = 3}
+                new Computer() { Code = "2C9N0EA", Name = "HP ZBook Power G7", ProcessorType = "Intel Xeon",ProcessorFrequency = 5100, MemoryCapacity = 16, HDDCapacity = 512, VideoCapacity = 4,Cost = 186720, Stock = 30}
     };
             Console.Write("Tip processora: ");
             string processorType = Console.ReadLine();
@@ -81,8 +81,42 @@ namespace Lab19
                 }
             }
 
+            double max = listComputer.Max(m => m.Cost);
+            computers = (from d in listComputer
+                         where d.Cost == max
+                         select d).ToList();
+            
+            Console.WriteLine("...");
+            Console.WriteLine("Samjij dorogoj kompjuter");
+            foreach (Computer comp in computers)
+            {
+                Console.WriteLine($"{comp.Code} {comp.Name} {comp.Cost} {comp.Stock}");
+            }
+            double min = listComputer.Min(m => m.Cost);
+            computers = (from d in listComputer
+                         where d.Cost == min
+                         select d).ToList();
+            Console.WriteLine("...");
+            Console.WriteLine("Samjij bjudzetnjij kompjuter");
+            foreach (Computer comp in computers)
+            {
+                Console.WriteLine($"{comp.Code} {comp.Name} {comp.Cost} {comp.Stock}");
+            }
 
-            Console.ReadKey();
+            Console.WriteLine("...");
+            Console.WriteLine("Nalicie na sklade kompjutera v kolicestve ne menee 30 stuk");
+            bool countThirty = listComputer.Any(c => c.Stock >= 30);
+            if (countThirty)
+            {
+                Console.WriteLine("Da");
+            }
+            else
+            {
+                Console.WriteLine("Net");
+            }
+
+
+            
             Console.ReadKey();
         }
     }
